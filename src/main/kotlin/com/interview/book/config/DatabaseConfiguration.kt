@@ -6,13 +6,15 @@ import org.springframework.data.auditing.DateTimeProvider
 import org.springframework.data.domain.AuditorAware
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
+import org.springframework.transaction.annotation.EnableTransactionManagement
 import java.time.ZonedDateTime
 import java.util.*
 
 @Configuration
 @EnableJpaRepositories("com.interview.book.repository")
 @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware", dateTimeProviderRef = "auditingDateTimeProvider")
-class DatabaseConfig {
+@EnableTransactionManagement
+class DatabaseConfiguration {
 
     /**
      * Defined a customize auditingDateTimeProvider for JPA Auditor

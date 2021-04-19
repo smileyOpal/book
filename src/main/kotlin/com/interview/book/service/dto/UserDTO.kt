@@ -11,6 +11,13 @@ data class UserDTO(
     @JsonProperty("date_of_birth") val dateOfBirth: Date? = null
 ): Serializable
 
+data class UserOrderDTO(
+    @JsonProperty("name") val firstName: String,
+    @JsonProperty("surname") val lastName: String,
+    @JsonProperty("date_of_birth") val dateOfBirth: Date? = null,
+    val books: List<Long>
+): Serializable
+
 data class CreateUserDTO(
     @NotBlank @JsonProperty("name") val firstName: String,
     @NotBlank @JsonProperty("surname") val lastName: String,
@@ -18,3 +25,6 @@ data class CreateUserDTO(
     @NotBlank val password: String,
     @JsonProperty("date_of_birth") val dateOfBirth: Date?
 )
+
+data class CreateOrderDTO(val orders: List<Long>)
+data class CalculatedOrderDTO(val price: Double)
