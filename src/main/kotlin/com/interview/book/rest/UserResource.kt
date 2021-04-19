@@ -46,7 +46,7 @@ class UserResource(val userService: UserService, val bookService: BookService) {
 
     @PostMapping("/users/orders")
     @ApiOperation(notes = "Order books for an user", value = "Order books")
-    fun orderBooks(request: CreateOrderDTO): ResponseEntity<CalculatedOrderDTO> {
+    fun orderBooks(@RequestBody request: CreateOrderDTO): ResponseEntity<CalculatedOrderDTO> {
         val username: String = SecurityUtils.getCurrentUserLogin().orElseThrow { ForbiddenException("Please login first") }
         return ResponseEntity.ok(bookService.createOrder(username, request))
     }

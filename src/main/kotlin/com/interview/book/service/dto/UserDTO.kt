@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import java.io.Serializable
 import java.util.*
 import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotEmpty
 
 data class UserDTO(
     @JsonProperty("name") val firstName: String,
@@ -26,5 +27,5 @@ data class CreateUserDTO(
     @JsonProperty("date_of_birth") val dateOfBirth: Date?
 )
 
-data class CreateOrderDTO(val orders: List<Long>)
+data class CreateOrderDTO(@NotEmpty(message = "Must not empty") val orders: List<Long>)
 data class CalculatedOrderDTO(val price: Double)

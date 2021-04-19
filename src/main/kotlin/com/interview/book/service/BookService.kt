@@ -1,6 +1,7 @@
 package com.interview.book.service
 
 import com.interview.book.repository.BookRepository
+import com.interview.book.rest.error.BadRequestException
 import com.interview.book.service.dto.BookDTO
 import com.interview.book.service.dto.CalculatedOrderDTO
 import com.interview.book.service.dto.CreateOrderDTO
@@ -44,6 +45,10 @@ class BookServiceImpl(val bookRepository: BookRepository) : BookService {
 
     override fun createOrder(username: String, request: CreateOrderDTO): CalculatedOrderDTO {
         val books = bookRepository.findByIdIsIn(request.orders)
+        if (request.orders.size != books.size) {
+            val booksNotFound = request.orders.filter { order -> books.find { it.id == order } == null }
+            throw BadRequestException("Invalid book(s) $booksNotFound")
+        }
         return CalculatedOrderDTO(books.sumByDouble { it.price })
     }
 
