@@ -1,8 +1,6 @@
 package com.interview.book.rest
 
-import com.interview.book.rest.error.ForbiddenException
-import com.interview.book.security.SecurityUtils
-import com.interview.book.service.BookService
+import com.interview.book.service.OrderService
 import com.interview.book.service.UserService
 import com.interview.book.service.dto.*
 import io.swagger.annotations.Api
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api")
 @Api("User resource")
-class UserResource(val userService: UserService, val bookService: BookService) {
+class UserResource(val userService: UserService, val orderService: OrderService) {
     private val log = LoggerFactory.getLogger(this::class.java)
 
     @PostMapping("/users")
@@ -31,23 +29,19 @@ class UserResource(val userService: UserService, val bookService: BookService) {
     @GetMapping("/users")
     @ApiOperation(notes = "Get an user", value = "Get user")
     fun getUser(): ResponseEntity<UserOrderDTO> {
-        val username: String = SecurityUtils.getCurrentUserLogin().orElseThrow { ForbiddenException("Please login first") }
-        val user = userService.getUser(username)
-        return ResponseEntity.ok(UserOrderDTO(user.firstName, user.lastName, user.dateOfBirth, emptyList()))
+        return ResponseEntity.ok(orderService.getUserBooks())
     }
 
     @DeleteMapping("/users")
     @ApiOperation(notes = "Delete an user", value = "Delete user")
     fun deleteUser(): ResponseEntity<Void> {
-        val username: String = SecurityUtils.getCurrentUserLogin().orElseThrow { ForbiddenException("Please login first") }
-        userService.deleteUser(username)
+        userService.deleteUser()
         return ResponseEntity.ok().build()
     }
 
     @PostMapping("/users/orders")
     @ApiOperation(notes = "Order books for an user", value = "Order books")
     fun orderBooks(@RequestBody request: CreateOrderDTO): ResponseEntity<CalculatedOrderDTO> {
-        val username: String = SecurityUtils.getCurrentUserLogin().orElseThrow { ForbiddenException("Please login first") }
-        return ResponseEntity.ok(bookService.createOrder(username, request))
+        return ResponseEntity.ok(orderService.createOrder(request))
     }
 }

@@ -16,7 +16,7 @@ data class UserOrderDTO(
     @JsonProperty("name") val firstName: String,
     @JsonProperty("surname") val lastName: String,
     @JsonProperty("date_of_birth") val dateOfBirth: Date? = null,
-    val books: List<Long>
+    val books: Set<Long>
 ): Serializable
 
 data class CreateUserDTO(

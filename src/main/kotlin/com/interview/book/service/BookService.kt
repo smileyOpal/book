@@ -1,10 +1,7 @@
 package com.interview.book.service
 
 import com.interview.book.repository.BookRepository
-import com.interview.book.rest.error.BadRequestException
 import com.interview.book.service.dto.BookDTO
-import com.interview.book.service.dto.CalculatedOrderDTO
-import com.interview.book.service.dto.CreateOrderDTO
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
@@ -13,7 +10,6 @@ import org.springframework.stereotype.Service
 
 interface BookService {
     fun getBooks(pageable: Pageable): Page<BookDTO>
-    fun createOrder(username: String, request: CreateOrderDTO): CalculatedOrderDTO
 }
 
 @Service
@@ -41,15 +37,6 @@ class BookServiceImpl(val bookRepository: BookRepository) : BookService {
         return bookRepository.findAll(builtPageable).map {
             BookDTO(it.id, it.bookName, it.price, it.authorName, it.isRecommended)
         }
-    }
-
-    override fun createOrder(username: String, request: CreateOrderDTO): CalculatedOrderDTO {
-        val books = bookRepository.findByIdIsIn(request.orders)
-        if (request.orders.size != books.size) {
-            val booksNotFound = request.orders.filter { order -> books.find { it.id == order } == null }
-            throw BadRequestException("Invalid book(s) $booksNotFound")
-        }
-        return CalculatedOrderDTO(books.sumByDouble { it.price })
     }
 
 }

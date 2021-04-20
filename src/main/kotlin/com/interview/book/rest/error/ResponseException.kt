@@ -11,3 +11,6 @@ class NotFoundException(message: String) : RuntimeException(message)
 
 @ResponseStatus(value = HttpStatus.FORBIDDEN)
 class ForbiddenException(message: String): RuntimeException(message)
+
+@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+class InternalServerException(message: String): RuntimeException(message)

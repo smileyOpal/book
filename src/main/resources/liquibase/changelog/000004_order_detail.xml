@@ -4,22 +4,18 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
-    <changeSet id="00001" author="opal">
-        <comment>Create book table</comment>
-        <createTable tableName="book">
-            <column name="id" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="price" type="decimal">
+    <changeSet id="00004" author="opal">
+        <comment>Create order_detail table</comment>
+        <createTable tableName="order_detail">
+            <column name="order_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="book_name" type="varchar(255)">
+            <column name="book_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="author_name" type="varchar(255)">
+            <column name="total_price" type="decimal">
                 <constraints nullable="false"/>
             </column>
-            <column name="is_recommended" type="boolean" valueBoolean="false"/>
             <column name="created_by" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
@@ -28,9 +24,8 @@
             <column name="last_modified_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP"/>
         </createTable>
 
-        <loadData
-                file="liquibase/data/book.csv"
-                separator=";"
-                tableName="book"/>
+        <addPrimaryKey columnNames="order_id, book_id"
+                       constraintName="PK_ORDER_TABLE"
+                       tableName="order_detail"/>
     </changeSet>
 </databaseChangeLog>
