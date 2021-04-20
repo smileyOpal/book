@@ -14,6 +14,7 @@ import com.interview.book.service.dto.CreateOrderDTO
 import com.interview.book.service.dto.UserOrderDTO
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.Collections.emptyList
 import java.util.Collections.emptySet
 
@@ -50,6 +51,7 @@ class OrderServiceImpl(
         )
     }
 
+    @Transactional
     override fun createOrder(request: CreateOrderDTO): CalculatedOrderDTO {
         val user = userService.getUserEntity()
         val userId = user.id ?: throw InternalServerException("Unexpected error when get user")
