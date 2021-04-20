@@ -13,6 +13,12 @@
             <column name="book_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
+            <column name="amount" type="tinyint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="unit_price" type="decimal">
+                <constraints nullable="false"/>
+            </column>
             <column name="total_price" type="decimal">
                 <constraints nullable="false"/>
             </column>

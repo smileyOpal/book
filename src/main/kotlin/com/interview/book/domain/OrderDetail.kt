@@ -7,6 +7,8 @@ import javax.persistence.*
 @Table(name = "order_detail")
 data class OrderDetail(
     @EmbeddedId val orderDetailId: OrderDetailId,
+    @Column(name = "amount", nullable = false) val amount: Int,
+    @Column(name = "unit_price", nullable = false) val unitPrice: Double,
     @Column(name = "total_price", nullable = false) val totalPrice: Double,
 ) : AbstractAuditingEntity(), Serializable
 

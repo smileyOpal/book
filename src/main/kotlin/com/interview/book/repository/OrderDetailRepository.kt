@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface OrderDetailRepository : JpaRepository<OrderDetail, OrderDetailId> {
     fun findByOrderDetailIdOrderIdIn(orderIds: List<Long>): List<OrderDetail>
+    fun findByOrderDetailIdOrderId(orderId: Long): List<OrderDetail>
 }
