@@ -160,7 +160,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"orders\": [1,2,3]\n}",
+					"raw": "{\n  \"orders\": [\n    {\n      \"bookId\": 1,\n      \"amount\": 1\n    },\n    {\n      \"bookId\": 2,\n      \"amount\": 2\n    }\n  ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
