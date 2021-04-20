@@ -1,49 +1,37 @@
 # Getting Started
+Please run project with steps provide below
 
-## Compile project
+### 1. Compile project
 ```
 ./mvnw clean compile
 ```
 
-## Testing
+### 2. Run test
 ```
 ./mvnw test
 ```
 
-## Packaging as jar
+### 3. Package to jar file
 ```
 ./mvnw package
 ```
 
-## Docker build
+### 4. Build docker image
 ```
 docker build . --tag book
 ```
 
-## Docker run
+### 5. Run built docker image
 ```
 docker run --publish 8080:8080 book
 ```
+* Once docker up, use the given postman collection to call APIs
+* Here is the swagger endpoint once service is up http://localhost:8080/swagger-ui.html
 
-### Endpoint
-* [Swagger] http://localhost:8080/swagger-ui.html
 
 ### Reference Documentation
 For further reference, please consider the following sections:
-
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.4.5/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.4.5/maven-plugin/reference/html/#build-image)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.4.5/reference/htmlsingle/#boot-features-developing-web-applications)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/docs/2.4.5/reference/htmlsingle/#boot-features-jpa-and-spring-data)
-* [Liquibase Migration](https://docs.spring.io/spring-boot/docs/2.4.5/reference/htmlsingle/#howto-execute-liquibase-database-migrations-on-startup)
-* [Validation](https://docs.spring.io/spring-boot/docs/2.4.5/reference/htmlsingle/#boot-features-validation)
-
-### Guides
-The following guides illustrate how to use some features concretely:
-
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
-
+* [Postman collection] is in folder path below
+```
+/postman/BOOK.postman_collection.json
+```
