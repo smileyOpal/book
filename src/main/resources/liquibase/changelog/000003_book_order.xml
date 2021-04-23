@@ -5,6 +5,11 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
     <changeSet id="00003" author="opal">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="book_order"/>
+            </not>
+        </preConditions>
         <comment>Create book_order table</comment>
         <createTable tableName="book_order">
             <column name="id" type="bigint" autoIncrement="true">
