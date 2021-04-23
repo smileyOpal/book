@@ -66,7 +66,7 @@ class OrderServiceImpl(
         }
         val saveOrder = bookOrderRepository.save(BookOrder(null, userId))
         val orderId = saveOrder.id ?: throw InternalServerException("Unexpected error when save order")
-        val orderDetails = request.orders.map { orderBook ->
+        val orderDetails: List<OrderDetail> = request.orders.map { orderBook ->
             val book: Book = books.find { it.id == orderBook.bookId }
                 ?: throw InternalServerException("Unexpected error when lookup book")
             OrderDetail(
