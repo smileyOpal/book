@@ -35,3 +35,7 @@ For further reference, please consider the following sections:
 ```
 /postman/BOOK.postman_collection.json
 ```
+* [Diagram] is in folder path below 
+```
+/diagram
+```
