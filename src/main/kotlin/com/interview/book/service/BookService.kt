@@ -13,11 +13,11 @@ interface BookService {
 }
 
 @Service
-class BookServiceImpl(val bookRepository: BookRepository) : BookService {
+class BookServiceImpl(private val bookRepository: BookRepository) : BookService {
 
-    val defaultSorting: Sort =
+    private val defaultSorting: Sort =
         Sort.by(Sort.Direction.DESC, "isRecommended").and(Sort.by(Sort.Direction.ASC, "bookName"))
-    val defaultSortingFields = listOf("isRecommended", "bookName")
+    private val defaultSortingFields = listOf("isRecommended", "bookName")
 
     override fun getBooks(pageable: Pageable): Page<BookDTO> {
         val builtPageable = if (pageable.sort.isEmpty) {
