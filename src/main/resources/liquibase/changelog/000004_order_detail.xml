@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
-    <changeSet id="00004" author="opal">
+    <changeSet id="00004_1" author="opal">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="order_detail"/>

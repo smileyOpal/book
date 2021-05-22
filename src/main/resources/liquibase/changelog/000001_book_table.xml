@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
-    <changeSet id="00001" author="opal">
+    <changeSet id="00001_1" author="opal">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="book"/>
@@ -32,7 +32,15 @@
             <column name="last_modified_by" type="varchar(50)"/>
             <column name="last_modified_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP"/>
         </createTable>
+    </changeSet>
 
+    <changeSet id="00001_2" author="opal">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM book
+            </sqlCheck>
+        </preConditions>
+        <comment>If table is empty, add book data</comment>
         <loadData
                 file="liquibase/data/book.csv"
                 separator=";"
