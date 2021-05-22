@@ -21,10 +21,10 @@ interface OrderService {
 
 @Service
 class OrderServiceImpl(
-    val userService: UserService,
-    val bookRepository: BookRepository,
-    val bookOrderRepository: BookOrderRepository,
-    val orderDetailRepository: OrderDetailRepository
+    private val userService: UserService,
+    private val bookRepository: BookRepository,
+    private val bookOrderRepository: BookOrderRepository,
+    private val orderDetailRepository: OrderDetailRepository
 ) : OrderService {
     private val log = LoggerFactory.getLogger(this::class.java)
 
