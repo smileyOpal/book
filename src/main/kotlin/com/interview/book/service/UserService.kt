@@ -19,8 +19,8 @@ interface UserService {
 
 @Service
 class UserServiceImpl(
-    val bookUserRepository: BookUserRepository,
-    val passwordEncoder: PasswordEncoder
+    private val bookUserRepository: BookUserRepository,
+    private val passwordEncoder: PasswordEncoder
 ) : UserService {
     override fun createUser(request: CreateUserDTO): UserDTO {
         val saved = bookUserRepository.save(
