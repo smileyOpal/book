@@ -45,7 +45,7 @@ class BookServiceImpl(private val bookRepository: BookRepository) : BookService 
     }
 
     override fun updateBook(dto: BookSyncDTO, isRecommendBook: Boolean) {
-        log.info("UPDATING book '${dto.id}' (isRecommendBook=$isRecommendBook)")
+        log.info("UPDATING book '${dto.id}'")
         bookRepository.save(Book(dto.id, dto.price, dto.name, dto.author, isRecommendBook))
     }
 

@@ -3,6 +3,7 @@ package com.interview.book.service
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.interview.book.config.ApplicationProperties
 import org.slf4j.LoggerFactory
+import org.springframework.retry.annotation.Retryable
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
@@ -11,7 +12,7 @@ import java.io.Serializable
 @Component
 class SyncBookProcess(
     applicationProperties: ApplicationProperties,
-    val bookService: BookService
+    private val bookService: BookService
 ) {
 
     private val log = LoggerFactory.getLogger(this::class.java)
@@ -19,6 +20,7 @@ class SyncBookProcess(
     private val restTemplate = RestTemplate()
     private val dataSyncProperties = applicationProperties.dataSync
 
+    @Retryable
     @Scheduled(
         cron = "\${application.data-sync.cronExpression}",
         zone = "\${application.data-sync.zone}"
