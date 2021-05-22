@@ -11,10 +11,18 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 @ConfigurationProperties(prefix = "application", ignoreUnknownFields = false)
 class ApplicationProperties {
     var jwt = Jwt()
+    var dataSync = DataSync()
 }
 
 class Jwt {
     lateinit var base64Secret: String
     var tokenValidityInSeconds: Long = 3600
     var tokenValidityInSecondsForRememberMe: Long = 25600
+}
+
+class DataSync {
+    lateinit var bookEndpoint: String
+    lateinit var bookRecommendEndpoint: String
+    lateinit var cronExpression: String
+    lateinit var zone: String
 }
