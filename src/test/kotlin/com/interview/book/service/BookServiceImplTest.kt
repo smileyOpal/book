@@ -15,7 +15,7 @@ internal class BookServiceImplTest {
     private lateinit var bookService: BookService
 
     @Test
-    fun `Assert correct sorting result when get all books `() {
+    fun `Assert correct sorting result when get all books`() {
         val actual = bookService.getBooks(PageRequest.of(0, 12))
         assertThat(actual.content).isNotEmpty
         assertThat(actual.content.size).isEqualTo(12)
