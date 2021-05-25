@@ -7,16 +7,20 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.MvcResult
 import org.springframework.test.web.servlet.ResultMatcher
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 open class BaseResourceTest {
 
     @Autowired
     protected lateinit var mockMvc: MockMvc
 
+    private lateinit var token: String
     lateinit var username: String
     lateinit var password: String
-    lateinit var token: String
+
+    lateinit var testName: String
+    lateinit var testSurname: String
+    lateinit var testBirthDate: String
 
     protected fun createNewUser() {
         mockMvc.perform(
@@ -32,7 +36,7 @@ open class BaseResourceTest {
                 )
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-        ).andExpect(MockMvcResultMatchers.status().isOk)
+        ).andExpect(status().isOk)
     }
 
     protected fun login() {
@@ -46,21 +50,22 @@ open class BaseResourceTest {
                 )
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-        ).andExpect(MockMvcResultMatchers.status().isOk)
+        ).andExpect(status().isOk)
             .andReturn()
 
         val jsonObj = JSONObject(result.response.contentAsString)
         token = jsonObj["id_token"].toString()
     }
 
-    protected fun deleteUser() {
-        mockMvc.perform(
-            delete("/api/users")
+    protected fun callPost(path: String, requestBody: String, resultMatcher: ResultMatcher): MvcResult {
+        return mockMvc.perform(
+            post(path)
+                .content(requestBody)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Bearer $token")
-        ).andExpect(MockMvcResultMatchers.status().isOk)
-        token = ""
+        ).andExpect(status().isOk)
+            .andReturn()
     }
 
     protected fun callGet(path: String, resultMatcher: ResultMatcher): MvcResult {
@@ -71,5 +76,15 @@ open class BaseResourceTest {
                 .header("Authorization", "Bearer $token")
         ).andExpect(resultMatcher)
             .andReturn()
+    }
+
+    protected fun deleteUser() {
+        mockMvc.perform(
+            delete("/api/users")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bearer $token")
+        ).andExpect(status().isOk)
+        token = ""
     }
 }

@@ -2,7 +2,10 @@ package com.interview.book.rest
 
 import com.interview.book.service.OrderService
 import com.interview.book.service.UserService
-import com.interview.book.service.dto.*
+import com.interview.book.service.dto.CalculatedOrderDTO
+import com.interview.book.service.dto.CreateOrderDTO
+import com.interview.book.service.dto.CreateUserDTO
+import com.interview.book.service.dto.UserOrderDTO
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import org.slf4j.LoggerFactory
@@ -15,7 +18,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api")
 @Api("User resource")
-class UserResource(val userService: UserService, val orderService: OrderService) {
+class UserResource(private val userService: UserService, private val orderService: OrderService) {
     private val log = LoggerFactory.getLogger(this::class.java)
 
     @PostMapping("/users")
