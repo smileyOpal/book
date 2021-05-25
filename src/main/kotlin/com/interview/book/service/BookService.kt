@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 interface BookService {
     fun getBooks(pageable: Pageable): Page<BookDTO>
@@ -16,6 +17,7 @@ interface BookService {
 }
 
 @Service
+@Transactional
 class BookServiceImpl(private val bookRepository: BookRepository) : BookService {
 
     private val log = LoggerFactory.getLogger(this::class.java)

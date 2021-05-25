@@ -21,7 +21,7 @@ import springfox.documentation.annotations.ApiIgnore
 @RestController
 @RequestMapping("/api")
 @Api("Book resource")
-class BookResource(val bookService: BookService) {
+class BookResource(private val bookService: BookService) {
     private val log = LoggerFactory.getLogger(this::class.java)
 
     @GetMapping("/books")

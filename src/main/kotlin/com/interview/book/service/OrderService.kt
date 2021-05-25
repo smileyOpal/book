@@ -20,6 +20,7 @@ interface OrderService {
 }
 
 @Service
+@Transactional
 class OrderServiceImpl(
     private val userService: UserService,
     private val bookRepository: BookRepository,

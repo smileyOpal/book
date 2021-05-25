@@ -9,6 +9,7 @@ import com.interview.book.service.dto.CreateUserDTO
 import com.interview.book.service.dto.UserDTO
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 interface UserService {
     fun createUser(request: CreateUserDTO): UserDTO
@@ -18,6 +19,7 @@ interface UserService {
 }
 
 @Service
+@Transactional
 class UserServiceImpl(
     private val bookUserRepository: BookUserRepository,
     private val passwordEncoder: PasswordEncoder
