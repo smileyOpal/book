@@ -1,5 +1,6 @@
 package com.interview.book.rest
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import org.json.JSONObject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
@@ -8,6 +9,9 @@ import org.springframework.test.web.servlet.MvcResult
 import org.springframework.test.web.servlet.ResultMatcher
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+
 
 open class BaseResourceTest {
 
@@ -22,16 +26,19 @@ open class BaseResourceTest {
     lateinit var testSurname: String
     lateinit var testBirthDate: String
 
+    val mapper = ObjectMapper()
+    val formatter: DateFormat = SimpleDateFormat("yyyy-MM-dd")
+
     protected fun createNewUser() {
         mockMvc.perform(
             post("/api/users")
                 .content(
                     "{\n" +
-                            "  \"name\": \"userA\",\n" +
-                            "  \"surname\": \"userA_lastname\",\n" +
+                            "  \"name\": \"$testName\",\n" +
+                            "  \"surname\": \"$testSurname\",\n" +
                             "  \"username\": \"$username\",\n" +
                             "  \"password\": \"$password\",\n" +
-                            "  \"date_of_birth\": \"1988-04-20\"\n" +
+                            "  \"date_of_birth\": \"$testBirthDate\"\n" +
                             "}"
                 )
                 .contentType(MediaType.APPLICATION_JSON)
@@ -64,7 +71,7 @@ open class BaseResourceTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Bearer $token")
-        ).andExpect(status().isOk)
+        ).andExpect(resultMatcher)
             .andReturn()
     }
 

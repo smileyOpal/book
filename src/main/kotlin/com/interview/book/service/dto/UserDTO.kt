@@ -17,17 +17,17 @@ data class UserOrderDTO(
     @JsonProperty("name") val firstName: String,
     @JsonProperty("surname") val lastName: String,
     @JsonProperty("date_of_birth") val dateOfBirth: Date? = null,
-    val orders: List<OrderDTO>
+    @JsonProperty("orders") val orders: List<OrderDTO>
 ): Serializable
 
 data class OrderDTO(
     @JsonProperty("order_id") val orderId: Long,
     @JsonProperty("created_date") val createDate: ZonedDateTime,
-    val detail: List<OrderDetailDTO>): Serializable
+    @JsonProperty("detail") val detail: List<OrderDetailDTO>): Serializable
 
 data class OrderDetailDTO(
     @JsonProperty("book_id") val bookId: Long,
-    val amount: Int,
+    @JsonProperty("amount") val amount: Int,
     @JsonProperty("unit_price") val unitPrice: Double,
     @JsonProperty("total_price") val totalPrice: Double): Serializable
 

@@ -11,6 +11,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import java.time.Instant
+import java.util.*
 
 
 @AutoConfigureMockMvc
@@ -21,6 +23,9 @@ internal class BookResourceTest : BaseResourceTest() {
     fun setUp() {
         username = RandomString.make(5)
         password = RandomString.make(10)
+        testName = RandomString.make(5)
+        testSurname = RandomString.make(5)
+        testBirthDate = formatter.format(Date.from(Instant.now()))
 
         createNewUser()
         login()
